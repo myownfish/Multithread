@@ -3,7 +3,7 @@ package com.test.multithread;
 public class LongWrapper {
     private long l;
 
-    public long getL() {
+    public synchronized long getL() {
         return l;
     }
 

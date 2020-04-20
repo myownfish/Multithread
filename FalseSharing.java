@@ -1,7 +1,8 @@
 package com.test.multithread;
 
-public class FalseSharing {
+import java.util.Comparator;
 
+public class FalseSharing {
     public static int NUM_THREAD_MAX = 4;
     public final static long ITERATIONS = 50_000_0000L;
 
@@ -51,7 +52,9 @@ public class FalseSharing {
             }
             end = System.currentTimeMillis();
             System.out.printf(" Padded # threads %d - T = %dms\n", n, end - begin);
-            
+            for(VolatileLongPadded padded : paddedLongs) {
+                System.out.println(padded.value);
+            }
             
             
             for (int j = 0; j < threads.length; j++) {
@@ -66,7 +69,9 @@ public class FalseSharing {
             }
             end = System.currentTimeMillis();
             System.out.printf(" UnPadded # threads %d - T = %dms\n", n, end - begin);
-            
+            for(VolatileLongPadded padded : paddedLongs) {
+                System.out.println(padded.value);
+            }
         
         }
 
@@ -91,3 +96,14 @@ public class FalseSharing {
     }
 
 }
+
+/*
+ * Padded # threads 1 - T = 3652ms
+ UnPadded # threads 1 - T = 3686ms
+ Padded # threads 2 - T = 4221ms
+ UnPadded # threads 2 - T = 14164ms
+ Padded # threads 3 - T = 5836ms
+ UnPadded # threads 3 - T = 12517ms
+ Padded # threads 4 - T = 7800ms
+ UnPadded # threads 4 - T = 13013ms
+ */
