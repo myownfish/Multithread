@@ -1,4 +1,4 @@
-package com.test.multithread;
+package com.test.multithread.simpledateformat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
