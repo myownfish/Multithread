@@ -1,10 +1,12 @@
 package com.test.multithread;
 
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Worker2 extends Thread {
 
+    private SimpleDateFormat format;
     private Object lock = new Object();
     private volatile boolean quittingTime = false;
 

@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class EnumDemo {
 
+    ThreadLocal<T> t;
     public static void main(String[] args) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         // TODO Auto-generated method stub
         Singleton sin = Singleton.INSTANCE;
