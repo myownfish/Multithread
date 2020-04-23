@@ -14,7 +14,7 @@ public class TestSemaphore {
         Semaphore semaphore = new Semaphore(1);
         
         ExecutorService service = Executors.newFixedThreadPool(5);
-        //IntStream.of(10000).forEach(i -> service.execute(new Task(semaphore)));
+        IntStream.range(0, 10).forEach(i -> System.out.println(i));
         for(int i = 0; i < 10; i++) {
             service.execute(new Task(semaphore));
         }
