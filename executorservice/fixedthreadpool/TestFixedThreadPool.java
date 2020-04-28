@@ -1,4 +1,4 @@
-package com.test.multithread.executorservice;
+package com.test.multithread.executorservice.fixedthreadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
