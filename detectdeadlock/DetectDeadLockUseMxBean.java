@@ -19,7 +19,8 @@ public class DetectDeadLockUseMxBean {
         
         Thread.sleep(1000);
         threadB.interrupt();
-        //make threadB release lockB. Then threadA can acquire the lock and resume.
+        //make threadB release lockB, this can be successful only when threadB is sleeping. 
+        //Then threadA can acquire the lock and resume.
         
         ThreadMXBean threadBean = ManagementFactory.getThreadMXBean();
         long[] threadIds = threadBean.findDeadlockedThreads();
