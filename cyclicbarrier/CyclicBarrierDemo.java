@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Executors;
 
 public class CyclicBarrierDemo {
 
@@ -24,7 +25,14 @@ public class CyclicBarrierDemo {
         NUM_PARTIAL_RESULTS = numberOfPartialResults;
         NUM_WORKERS = numWorkers;
 
-        cyclicBarrier = new CyclicBarrier(numWorkers, new AggregatorThread());
+        /*
+         * CyclicBarrier的回调函数执行在一个回合里最后执行await()的线程上，而且同步调用回调函数check()，调用完check之后，
+         * 才会开始第二回合。所以check如果不另开一线程异步执行，就起不到性能优化的作用了。
+         */
+        // cyclicBarrier = new CyclicBarrier(numWorkers, new AggregatorThread());
+        cyclicBarrier = new CyclicBarrier(numWorkers, () -> {
+            Executors.newFixedThreadPool(1).submit(new AggregatorThread());
+        });
         System.out.println("Spawning " + NUM_WORKERS + " worker thread to compute " + NUM_PARTIAL_RESULTS + " partial results each");
         for (int i = 0; i < NUM_WORKERS; i++) {
             Thread worker = new Thread(new NumberCruncherThread());
@@ -69,7 +77,7 @@ public class CyclicBarrierDemo {
             int sum = 0;
 
             for (List<Integer> threadResult : partialResults) {
-                System.out.print(Thread.currentThread().getName() +" Adding ");
+                System.out.print(Thread.currentThread().getName() + " Adding ");
                 for (Integer partialResult : threadResult) {
                     System.out.print(partialResult + " ");
                     sum += partialResult;
